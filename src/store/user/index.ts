@@ -1,19 +1,20 @@
 import { defineStore } from 'pinia'
 import pinia from '@/store'
-import { userLogin, refreshUserInfo } from '@/api/user';
+import { userLogin, refreshUserInfo } from '@/api/user'
+import router from '@/router'
 
 export interface UserState {
-  username: string;
-  accessToken: string;
-  refreshToken?: string;
-  roles: Array<string>;
+  username: string
+  accessToken: string
+  refreshToken?: string
+  roles: Array<string>
 }
 export type LoginRequest = {
-  username: string;
-  password: string;
-};
+  username: string
+  password: string
+}
 
-export const useUserStoreHook = defineStore('userInfo',{
+export const useUserStoreHook = defineStore('userInfo', {
   state: (): UserState => ({
     username: 'gengyun',
     accessToken: '',
@@ -21,36 +22,42 @@ export const useUserStoreHook = defineStore('userInfo',{
   }),
   getters: {},
   actions: {
-    storeUserLogin(data: LoginRequest){
-      return userLogin(data).then(res => {
+    storeUserLogin(data: LoginRequest) {
+      return userLogin(data).then((res) => {
         this.username = res.username
-        this.roles = res.roles;
-        this.accessToken = res.accessToken;
-        return res;
+        this.roles = res.roles
+        this.accessToken = res.accessToken
+        return res
       })
     },
-    storeRefreshUserInfo(){
-      if(this.username === 'gengyun' && this.accessToken !=''){
+    logout() {
+      sessionStorage.removeItem('userInfo')
+      this.accessToken = ''
+      router.push('/login')
+    },
+    storeRefreshUserInfo() {
+      if (this.username === 'gengyun' && this.accessToken != '') {
         refreshUserInfo({
-          accessToken: this.accessToken
-        }).then((res) => {
-          this.username = res.username;
-          this.roles = res.roles;
-          this.accessToken = res.accessToken;
+          accessToken: this.accessToken,
         })
-        .catch(() => {
-            this.accessToken = '';
-        });
-        }
-    }
+          .then((res) => {
+            this.username = res.username
+            this.roles = res.roles
+            this.accessToken = res.accessToken
+          })
+          .catch(() => {
+            this.accessToken = ''
+          })
+      }
+    },
   },
   persist: {
     key: 'userInfo',
     storage: sessionStorage,
-    paths: ['accessToken'],
-},
+    paths: ['accessToken', 'username'],
+  },
 })
 
 export function useUserStore() {
-  return useUserStoreHook(pinia);
+  return useUserStoreHook(pinia)
 }

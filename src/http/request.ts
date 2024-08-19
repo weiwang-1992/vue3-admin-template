@@ -8,7 +8,6 @@ interface BaseResponse<T = any> {
   data: T
   status?: number | string
 }
-
 const service = axios.create({
   baseURL: import.meta.env.VITE_APP_USE_MOCK
     ? import.meta.env.VITE_APP_MOCK_BASEURL
@@ -28,13 +27,13 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response: AxiosResponse) => {
     if (response.status === 200) {
-      return response.data
+      return response
     }
     ElMessage({
       message: getMessageInfo(response.status),
       type: 'error',
     })
-    return response.data
+    return response
   },
   // 请求失败
   (error: any) => {

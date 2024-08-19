@@ -15,12 +15,12 @@ export default [
           },
         }
       }
-      if (body.name === 'admin') {
+      if (body.username === 'gengyun') {
         return {
           code: 0,
           message: '登录成功',
           data: {
-            username: 'admin',
+            username: 'gengyun',
             roles: ['admin'],
             accessToken: 'admin',
           },
@@ -28,6 +28,44 @@ export default [
       } else {
         return {
           code: 0,
+          message: '登录成功',
+          data: {
+            username: 'common',
+            roles: ['common'],
+            accessToken: 'common',
+          },
+        }
+      }
+    },
+  },
+  {
+    // 获取用户信息的接口
+    url: '/mock/api/getUserInfo',
+    method: 'post',
+    response: ({ body }) => {
+      if (body.accessToken === 'gengyun') {
+        return {
+          code: 0,
+          message: '登录成功',
+          data: {
+            username: 'gengyun',
+            roles: ['admin'],
+            accessToken: 'gengyun',
+          },
+        }
+      } else if (body.accessToken === 'common') {
+        return {
+          code: 0,
+          message: '登录成功',
+          data: {
+            username: 'common',
+            roles: ['common'],
+            accessToken: 'common',
+          },
+        }
+      } else {
+        return {
+          code: 1,
           message: 'Token失效',
           data: {
             username: '',

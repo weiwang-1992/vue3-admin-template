@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Nprogress from 'nprogress'
-import 'nprogress/nprogress.css';
+import 'nprogress/nprogress.css'
 
 export const aboutRouter = {
   path: '/about',
@@ -8,14 +8,14 @@ export const aboutRouter = {
   component: () => import('@/views/about/index.vue'),
   meta: {},
   children: [],
-} as RouteRecordRaw;
+} as RouteRecordRaw
 
 //组合路由信息
 // import.meta.glob 为vite 提供的特殊导入方式
 // 它可以将模块中全部内容导入并返回一个Record对象
 // 默认为懒加载模式 加入配置项 eager取消懒加载
-const modules: Record<string, any> = import.meta.glob(['./modules/*.ts'],{
-  eager: true
+const modules: Record<string, any> = import.meta.glob(['./modules/*.ts'], {
+  eager: true,
 })
 // const routes: Array<RouteRecordRaw> = [
 //   {
@@ -28,7 +28,7 @@ const modules: Record<string, any> = import.meta.glob(['./modules/*.ts'],{
 // ]
 
 const routes: Array<RouteRecordRaw> = []
-Object.keys(modules).forEach(key => {
+Object.keys(modules).forEach((key) => {
   const module = modules[key].default
   routes.push(module)
 })
@@ -39,9 +39,15 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(async(_to,_from,next) => {
-  Nprogress.start();
-  next()
+const noStatusPage = ['/login', '/about']
+router.beforeEach(async (_to, _from, next) => {
+  Nprogress.start()
+  const userIsLogin = sessionStorage.getItem('userInfo')
+  if (userIsLogin || noStatusPage.includes(_to.path)) {
+    next()
+  } else {
+    next('/login')
+  }
 })
 
 router.afterEach((_to) => {
