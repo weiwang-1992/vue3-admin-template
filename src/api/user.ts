@@ -24,3 +24,7 @@ export const userLogin = async (data?: LoginRequest) =>{
 export const refreshUserInfo = async (data?: reLoginRequest) =>{
   return post<LoginResponse>({},'/getUserInfo', data)
 }
+
+export const getUserList = async (data) => {
+  return get({},'/getUserList',data)
+}
