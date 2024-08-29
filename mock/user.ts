@@ -83,7 +83,7 @@ export default [
     response: () => {
       return {
         code: 0,
-        messagee: '获取成功',
+        message: '获取成功',
         data: [
           {
             id: 1,

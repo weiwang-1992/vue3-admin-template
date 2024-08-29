@@ -7,7 +7,7 @@ export default [
     response: () => {
       return {
         code: 0,
-        message: '获取成功',
+        message: 'success',
         data: [
           { 
             roleName: '管理员',
