@@ -15,8 +15,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+// import { ref, onMounted } from 'vue'
+// import { useRoute } from 'vue-router'
 import { getAuthList } from '@/api/auth'
 
 interface ITreeData {

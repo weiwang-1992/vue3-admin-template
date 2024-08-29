@@ -1,4 +1,7 @@
 <template>
-    <div>about</div>
+    <div class="wrap-about">about</div>
+
 </template>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+
+</style>
