@@ -56,6 +56,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       Components({
         resolvers: [IconsResolver(), ElementPlusResolver()],
         dts: fileURLToPath(new URL('./types/components.d.ts', import.meta.url)),
+        dirs: [fileURLToPath(new URL('./src/components/auto', import.meta.url))]
       }),
       // 自动安装图标
       Icons({

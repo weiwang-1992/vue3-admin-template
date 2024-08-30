@@ -30,5 +30,6 @@ declare module 'vue' {
     IEpUser: typeof import('~icons/ep/user')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Tag: typeof import('./../src/components/auto/tag.vue')['default']
   }
 }
