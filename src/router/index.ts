@@ -1,6 +1,10 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
+import { useSettingStore } from '@/store/setting';
+import { getTitle } from '@/utils';
+import { title } from 'process';
+const settingStore = useSettingStore();
 
 export const aboutRouter = {
   path: '/about',
@@ -39,6 +43,13 @@ const router = createRouter({
   routes,
 })
 
+const handleRouters = (currentName: string) =>{
+  const titles = getTitle(currentName,router.getRoutes())
+  console.log('titles',titles);
+  
+  settingStore.setTitle(titles)
+}
+
 const noStatusPage = ['/login', '/about']
 router.beforeEach(async (_to, _from, next) => {
   Nprogress.start()
@@ -48,6 +59,7 @@ router.beforeEach(async (_to, _from, next) => {
   } else {
     next('/login')
   }
+  handleRouters(_to.name as string)
 })
 
 router.afterEach((_to) => {
