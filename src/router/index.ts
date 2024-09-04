@@ -45,8 +45,6 @@ const router = createRouter({
 
 const handleRouters = (currentName: string) =>{
   const titles = getTitle(currentName,router.getRoutes())
-  console.log('titles',titles);
-  
   settingStore.setTitle(titles)
 }
 

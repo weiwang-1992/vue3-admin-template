@@ -39,7 +39,6 @@ import { ArrowRight } from '@element-plus/icons-vue';
 import { useSettingStore } from '@/store/setting';
 
 const settingStore = useSettingStore();
-console.log('settingStore',settingStore);
 
 const router = useRouter()
 const route = useRoute()
@@ -49,7 +48,6 @@ const menuList = router.options.routes[0].children?.filter(item => {
 })
 
 const activeMenu = route.path
-console.log('menuList',menuList);
 
 </script>
 <style lang="less" scoped>
